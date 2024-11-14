@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fireworks Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .products {
+            flex: 1;
+            max-width: 600px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-right: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .product {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .product button:hover {
+            background-color: #45a049;
+        }
+
+        /* Floating Cart */
+        .cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none; /* Initially hidden */
+            z-index: 999;
+        }
+
+        .cart h2 {
+            margin-bottom: 20px;
+        }
+
+        .cart-items {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .cart-item span {
+            font-size: 14px;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .clear-cart {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .clear-cart:hover {
+            background-color: #e53935;
+        }
+
+        .checkout {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .checkout:hover {
+            background-color: #1976D2;
+        }
+
+        /* Floating View Cart Button */
+        .view-cart-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #2196F3;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        .view-cart-btn:hover {
+            background-color: #1976D2;
+        }
+
+        /* Floating Contact Button */
+        .contact-btn {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: #FF5722;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        .contact-btn:hover {
+            background-color: #F4511E;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            position: fixed;
+            bottom: 120px;
+            right: 20px;
+            width: 300px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none; /* Initially hidden */
+            z-index: 1000;
+        }
+
+        .contact-form h2 {
+            margin-bottom: 15px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .contact-form button:hover {
+            background-color: #1976D2;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .products {
+                max-width: 100%;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Products Section -->
+    <div class="products">
+        <h1>Fireworks Shop</h1>
+        <div class="product">
+            <img src="download (1).jpeg" alt="Rocket Fireworks" width="100">
+            <div>Rocket Fireworks - €10.00</div>
+            <button onclick="addToCart('Rocket Fireworks', 10.00)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="download.png" alt="Roman Candles" width="100">
+            <div>Roman Candles - €10.00</div>
+            <button onclick="addToCart('Roman Candles', 10.00)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="images.jpeg" alt="cobra 6" width="100">
+            <div>cobra 6  - €14.00</div>
+            <button onclick="addToCart('cobra 6', 14)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <img src="download.jpeg" alt="nitraten" width="100">
+        <div>nitraten - €10.00</div>
+        <button onclick="addToCart('nitraten', 10)">Add to Cart</button>
+</div>
+<div class="product">
+    <img src="cafferata-howling-blaster-6575e393c0fd9626482541.jpg" alt="thunder kings" width="100">
+    <div>thunder kings - €12.00</div>
+    <button onclick="addToCart('thunder kings', 12)">Add to Cart</button>
+</div>
+<div class="product">
+    <img src="download (3).jpeg" alt="dumbum 5g" width="100">
+    <div>dumbum 5g - €15.00</div>
+    <button onclick="addToCart('dumbum 5g', 15)">Add to Cart</button>
+</div>
+<div class="product">
+    <img src="download (5).jpeg" alt="gigant" width="100">
+    <div>gigant maroon - €40.00</div>
+    <button onclick="addToCart('gigant maroon', 40.00)">Add to Cart</button>
+</div>
+<div class="product">
+    <img src="download (4).jpeg" alt="dumbum f2" width="100">
+    <div>dumbum f2 - €8.00</div>
+    <button onclick="addToCart('dumbum f2', 8.00)">Add to Cart</button>
+</div>
+<div class="product">
+    <img src="download (6).jpeg" alt="scream 100" width="100">
+    <div>scream 100 - €30.50</div>
+    <button onclick="addToCart('Scream 100', 30.50)">Add to Cart</button>
+</div>
+</div>
+
+<!-- Floating View Cart Button -->
+<button class="view-cart-btn" onclick="toggleCart()">View Cart</button>
+
+<!-- Floating Contact Button -->
+<button class="contact-btn" onclick="toggleContactForm()">Contact Us</button>
+
+<!-- Contact Form -->
+<div class="contact-form" id="contact-form">
+    <h2>Contact Us</h2>
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Your Email" required>
+    <textarea id="message" placeholder="Your Message" rows="4" required></textarea>
+    <button onclick="submitContactForm()">Submit</button>
+</div>
+
+<!-- Cart -->
+<div class="cart" id="cart">
+    <h2>Shopping Cart</h2>
+    <h5>make a sceenshot after you got everything and add lukaziens on snap and show him the screenshot</h5>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="total">Total: $<span id="total">0.00</span></div>
+    <button class="clear-cart" onclick="clearCart()">Clear Cart</button>
+    <button class="checkout" onclick="checkout()">Checkout</button>
+</div>
+
+<script>
+    // Cart Data
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Add item to cart
+    function addToCart(name, price) {
+        const item = { name, price };
+        cart.push(item);
+        localStorage.setItem('cart', JSON.stringify(cart)); // Save to localStorage
+        updateCart();
+    }
+
+    // Update the cart display
+    function updateCart() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        const totalContainer = document.getElementById('total');
+
+        // Clear the cart items display
+        cartItemsContainer.innerHTML = '';
+
+        let total = 0;
+
+        // Populate the cart items
+        cart.forEach(item => {
+            const cartItemDiv = document.createElement('div');
+            cartItemDiv.classList.add('cart-item');
+            cartItemDiv.innerHTML = `${item.name} - $${item.price.toFixed(2)}`;
+            cartItemsContainer.appendChild(cartItemDiv);
+            total += item.price;
+        });
+
+        // Update the total
+        totalContainer.textContent = total.toFixed(2);
+    }
+
+    // Clear the cart
+    function clearCart() {
+        cart = [];
+        localStorage.setItem('cart', JSON.stringify(cart)); // Clear cart in localStorage
+        updateCart();
+    }
+
+    // Checkout
+    function checkout() {
+        if (cart.length > 0) {
+            alert('Proceeding to checkout...');
+        } else {
+            alert('Your cart is empty!');
+        }
+    }
+
+    // Toggle Cart Visibility
+    function toggleCart() {
+        const cartElement = document.getElementById('cart');
+        cartElement.style.display = cartElement.style.display === 'none' || cartElement.style.display === '' ? 'block' : 'none';
+    }
+
+    // Toggle Contact Form Visibility
+    function toggleContactForm() {
+        const contactForm = document.getElementById('contact-form');
+        contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
+    }
+
+    // Placeholder for submitting contact form (can be enhanced as needed)
+    function submitContactForm() {
+        alert('Your message has been sent!');
+    }
+
+    // Initialize the cart on page load
+    updateCart();
+</script>
+
+</body>
+</html>
